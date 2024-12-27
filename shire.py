@@ -31,7 +31,7 @@ class ImageSeries:
         a numpy matrix of size n_frames * height * width
         """
         x, y = xy
-        cropped_images = ImageSeries(data=self.data[:, y : y + height, x : x + width])
+        cropped_images = ImageSeries(data=self.data[:, x : x + width, y : y + height])
         if illustrate:
             if x < 0:
                 x = self.shape[1] + x
