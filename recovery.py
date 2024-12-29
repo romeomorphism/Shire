@@ -58,7 +58,7 @@ class Recovery(FiltersGaussian):
             dir = directions[_]
             i = 0
             for p, d in zip(pos, dir):
-                p_data.append({'Frame': _, 'Index': i,  'Position': p})
+                p_data.append({'Frame': _, 'Index': i,  'Position': p, 'X': p[0], 'Y':p[1]})
                 d_data.append({'Frame': _, 'Index': i, 'Direction': d})
                 i += 1
         
@@ -122,7 +122,7 @@ class Recovery(FiltersGaussian):
                 # p_list.append(self.positions[i*self.dt+self.dt][index])
                 # d_list.append(self.directions[i*self.dt+self.dt][index])
         
-        self.df_particle = pd.DataFrame({'Frame': range(self.start, self.start+self.dt*len(p_list), self.dt), 'Position': p_list, "Direction": d_list, "Speed": s_list})
+        self.df_particle = pd.DataFrame({'Frame': range(self.start, self.start+self.dt*len(p_list), self.dt), 'Position': p_list, 'X': [p[0] for p in p_list], 'Y': [p[1] for p in p_list], "Direction": d_list, "Speed": s_list})
         return self.df_particle
 
     # @property
