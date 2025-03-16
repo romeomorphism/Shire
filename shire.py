@@ -79,7 +79,7 @@ class ImageSeries:
 
         return filtered_images
     
-    def remove_background(self, separation=1):
+    def  remove_background(self, separation=1):
         data = self.data[separation:] - self.data[:-separation]
         
         bgrm_images = ImageSeries(data=data)

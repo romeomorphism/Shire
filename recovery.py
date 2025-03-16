@@ -129,7 +129,7 @@ class Recovery(FiltersGaussian):
     # def df_particle(self):
     #     return pd.merge(self.df_particle_p, self.df_particle_d, on='Frame')
     
-    def track_all(self, speed_grid=np.linspace(0,0.1,201), frame=0, num_frames=2, backward=False):
+    def track_all(self, speed_grid=np.linspace(0,0.2,401), frame=0, num_frames=2, backward=False):
         self.df_all = pd.DataFrame()
         for i in range((self.df_p[self.df_p['Frame']==frame]).shape[0]):
             print(f"Particle: {i} / {(self.df_p[self.df_p['Frame']==frame]).shape[0]}")
@@ -140,8 +140,10 @@ class Recovery(FiltersGaussian):
 
             df_particle['Particle'] = i
             self.df_all = pd.concat([self.df_all, df_particle])
+
+    def mean_speed(self):
+        return self.df_all.groupby('Particle')['Speed'].mean() * self.DISTANCE_PER_UNIT * ImageSeries.SCALE_CST
             
-        
     def return_speeds(self):
         SCAlING_CST = self.DISTANCE_PER_UNIT * ImageSeries.SCALE_CST
         return  [s * SCAlING_CST for s in self.s_list]
